@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LightsON: report and check power, water and internet outages</title>
+  <meta name="description" content="Free community tool for South Africa. Report load-shedding, water cuts and Wi-Fi or mobile data outages in your area, and see what your neighbours are reporting.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#15233a">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="LightsON: is it just you, or the whole street?">
+  <meta property="og:description" content="Report and check power, water and internet outages in your area.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%A1%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="top">
+    <h1 class="brand">Lights<span>ON</span></h1>
+    <p class="tagline">What's down in your area? Tell your neighbours.</p>
+  </header>
+
+  <main class="layout">
+    <section class="report" aria-labelledby="report-title">
+      <h2 id="report-title">What's down?</h2>
+
+      <form id="report-form" novalidate>
+        <fieldset class="types">
+          <legend class="sr-only">Type of outage</legend>
+          <label class="type type-power">
+            <input type="radio" name="outage_type" value="power" checked>
+            <span>Power</span>
+          </label>
+          <label class="type type-water">
+            <input type="radio" name="outage_type" value="water">
+            <span>Water</span>
+          </label>
+          <label class="type type-internet">
+            <input type="radio" name="outage_type" value="internet">
+            <span>Wi-Fi / fibre</span>
+          </label>
+          <label class="type type-mobile_data">
+            <input type="radio" name="outage_type" value="mobile_data">
+            <span>Mobile data</span>
+          </label>
+        </fieldset>
+
+        <label class="field">
+          <span>Where are you?</span>
+          <input id="area" name="area" type="text" minlength="2" maxlength="120"
+                 placeholder="Suburb or street, e.g. Universitas" required autocomplete="off">
+        </label>
+
+        <label class="field">
+          <span>Anything else we should know? <em>(optional)</em></span>
+          <textarea id="description" name="description" rows="2" maxlength="500"
+                    placeholder="e.g. Off since 08:00, whole street affected"></textarea>
+        </label>
+
+        <button type="submit" class="primary">Report outage</button>
+        <p id="form-message" class="message" role="status" aria-live="polite"></p>
+      </form>
+
+      <div class="hotspots" aria-labelledby="hot-title">
+        <h3 id="hot-title">Most affected areas</h3>
+        <ol id="areas" class="area-list"></ol>
+      </div>
+    </section>
+
+    <section class="feed" aria-labelledby="feed-title">
+      <div class="feed-head">
+        <h2 id="feed-title">Happening now</h2>
+        <div class="filters" role="group" aria-label="Filter by type">
+          <button type="button" class="chip is-active" data-type="">All</button>
+          <button type="button" class="chip" data-type="power">Power</button>
+          <button type="button" class="chip" data-type="water">Water</button>
+          <button type="button" class="chip" data-type="internet">Wi-Fi / fibre</button>
+          <button type="button" class="chip" data-type="mobile_data">Mobile data</button>
+        </div>
+      </div>
+
+      <label class="search">
+        <span class="sr-only">Search your area</span>
+        <input id="search" type="search" placeholder="Search your area" autocomplete="off">
+      </label>
+
+      <p id="feed-message" class="message" role="status" aria-live="polite"></p>
+      <ul id="outages" class="outages"></ul>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>Built by Tshegofatso Mohlala. Reports come from the community and are not official.</p>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
